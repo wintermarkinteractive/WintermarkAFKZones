@@ -1,0 +1,90 @@
+# ============================================================
+#  Wintermark AFK Zones - config.yml
+#  Text uses MiniMessage colors: <gold>, <green>, <bold>, <#C9A227> ...
+#  Placeholders: <player>, <zone>, <time>, <interval>
+#  After editing: /afkzone reload
+# ============================================================
+
+# true  = leaving a zone resets the timer for that zone.
+# false = progress is kept until the player logs out.
+reset-on-leave: true
+
+anti-alt:
+  # How many players from the same IP address can earn rewards at the same time.
+  # Stops players from farming with alt accounts. 0 = no limit.
+  # Players with wintermark.afkzones.bypass-ip are never limited.
+  max-per-ip: 1
+
+bossbar:
+  enabled: true
+  # PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE
+  color: YELLOW
+  # PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20
+  style: PROGRESS
+  text: "<gold><bold>AFK</bold></gold> <gray>|</gray> <white><zone></white> <gray>| next reward in</gray> <yellow><time></yellow>"
+  # Shown instead when anti-alt blocks the player. <max> = max-per-ip.
+  blocked-text: "<red><bold>AFK</bold></red> <gray>|</gray> <red>Another account on your connection is already earning</red>"
+
+wand:
+  # Item for /afkzone wand (left-click a block = pos1, right-click = pos2).
+  material: BLAZE_ROD
+  # Show zone outlines (gold) and your selection (green) with particles while holding the wand.
+  show-outlines: true
+
+sounds:
+  # Minecraft sound keys, e.g. entity.player.levelup, entity.experience_orb.pickup. Leave empty for no sound.
+  enter: "block.note_block.pling"
+  reward: "entity.player.levelup"
+
+# Reward profiles. Each zone uses one profile (default: "default").
+# Every reward entry is rolled on its own: chance 100 = always, 25 = one in four.
+#   items:    MATERIAL:amount
+#   commands: run by the console. <player> and <zone> are replaced.
+#             Example with an economy plugin: "eco give <player> 100"
+profiles:
+  default:
+    interval-seconds: 300
+    rewards:
+      iron:
+        chance: 100
+        items:
+          - "IRON_INGOT:4"
+        message: "<green>+4 Iron Ingots</green> <gray>for staying in <zone>."
+      diamond:
+        chance: 25
+        items:
+          - "DIAMOND:1"
+        message: "<aqua><bold>Lucky!</bold></aqua> <aqua>+1 Diamond</aqua>"
+  fast:
+    interval-seconds: 60
+    rewards:
+      bread:
+        chance: 100
+        items:
+          - "BREAD:2"
+        message: "<yellow>+2 Bread</yellow>"
+
+messages:
+  prefix: "<dark_gray>[<gold>AFK</gold>]</dark_gray> "
+  enter: "<green>You entered the AFK zone <gold><zone></gold>. Stay here to earn rewards every <yellow><interval></yellow>."
+  leave: "<red>You left the AFK zone <gold><zone></gold>."
+  reward-nothing: ""
+  no-permission: "<red>You don't have permission to do that."
+  players-only: "<red>Only players can use this."
+  status-in-zone: "<gray>You are in <gold><zone></gold>. Next reward in <yellow><time></yellow>."
+  status-no-zone: "<gray>You are not in an AFK zone."
+  teleported: "<green>Teleported to the AFK zone <gold><zone></gold>."
+  no-spawn: "<red>The AFK zone <gold><zone></gold> has no teleport point yet."
+  no-tp-zones: "<red>There are no AFK zones to teleport to yet."
+  choose-zone: "<gray>Choose a zone: <yellow>/afkzone tp \\<zone></yellow> <gray>(<white><zones></white>)"
+  unknown-zone: "<red>There is no AFK zone called <white><zone></white>."
+  alt-blocked: "<red>Only <max> account(s) per connection can earn AFK rewards at the same time. You will start earning when the other account leaves."
+  stats-self: "<gold>Your AFK stats:</gold> <gray>time</gray> <yellow><time></yellow> <gray>| rewards</gray> <yellow><rewards></yellow>"
+  stats-other: "<gold><player>'s AFK stats:</gold> <gray>time</gray> <yellow><time></yellow> <gray>| rewards</gray> <yellow><rewards></yellow>"
+  stats-unknown: "<red>No AFK stats for <white><player></white>."
+  top-empty: "<gray>Nobody has AFK stats yet."
+  # The leaderboard is sent without the prefix. <type> = top-type-time or top-type-rewards.
+  top-header: "<gold><bold>Top AFK - <type></bold></gold>"
+  top-type-time: "Time"
+  top-type-rewards: "Rewards"
+  top-line: "<yellow>#<rank></yellow> <white><player></white> <gray>-</gray> <yellow><value></yellow>"

@@ -1,0 +1,23 @@
+name: WintermarkAFKZones
+version: '${version}'
+main: io.github.wintermarkinteractive.afkzones.AFKZonesPlugin
+description: AFK zones that reward players for standing in them, with timers, bossbar and configurable rewards.
+author: Wintermark Interactive
+website: https://github.com/wintermarkinteractive
+api-version: '26.3'
+permissions:
+  wintermark.afkzones.use:
+    description: Earn rewards in AFK zones.
+    default: true
+  wintermark.afkzones.tp:
+    description: Teleport to AFK zones with /afkzone tp.
+    default: true
+  wintermark.afkzones.stats:
+    description: Use /afkzone stats and /afkzone top.
+    default: true
+  wintermark.afkzones.bypass-ip:
+    description: Never limited by anti-alt (max players per IP).
+    default: false
+  wintermark.afkzones.admin:
+    description: Create, delete and manage AFK zones and reload the config.
+    default: op
